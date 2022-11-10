@@ -1,7 +1,8 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { Avater } from "./Avater";
+import { TaskList } from "./TaskList";
 
-type Task = {
+export type Task = {
   id: number;
   title: string;
   assignee: string;
@@ -31,18 +32,12 @@ const fillteringAssignee = (assignee: string) => {
 }
 
 export const Transition = () => {
-  // isPandingで更新中かどうかの判定を返すことができる
-  const [isPanding, startTransition] = useTransition();
-
   const [selectedAssignee, setSelectedAssignee] = useState<string>('');
   const [taskList, setTaskList] = useState<Task[]>(tasks);
 
   const onClickAssignee = (assignee: string) => {
     setSelectedAssignee(assignee);
-    startTransition(() => {
-      // 緊急性の高くないものを指定する
-      setTaskList(fillteringAssignee(assignee));
-    })
+    setTaskList(fillteringAssignee(assignee));
   }
 
   return (
@@ -56,12 +51,7 @@ export const Transition = () => {
       <br />
       <button onClick={()=>onClickAssignee('')}>リセット</button>
 
-      {taskList.map((task) => (
-        <div key={task.id} style={{ width: '300px', margin: 'auto', background: 'lavender', opacity: isPanding ? 0.5 : 1 }}>
-          <p>タイトル：{task.title}</p>
-          <p>担当：{task.assignee}</p>
-        </div>
-      ))}
+      <TaskList taskList={taskList} />
     </div>
   )
 }
