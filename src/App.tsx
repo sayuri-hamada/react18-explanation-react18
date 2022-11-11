@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { AutoBacthEventHandler } from './components/AutoBacthEventHandler';
 import { AutoBatchOther } from './components/AutoBatchOther';
+import { ReactQuery } from './components/ReactQuery';
 import { Transition } from './components/Transition';
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
       <AutoBatchOther />
       <hr />
       <Transition />
+      <hr />
+      <ReactQuery />
     </div>
   );
 }
